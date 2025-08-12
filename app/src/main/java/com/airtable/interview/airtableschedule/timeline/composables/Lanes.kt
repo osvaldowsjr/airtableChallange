@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.times
@@ -27,40 +28,55 @@ fun LaneRow(
     minDate: Long,
     dayWidth: Dp,
     laneIndex: Int,
-    totalDays: Int,
     onClickEventUiModel: (EventUiModel) -> Unit,
 ) {
-    var currentOffsetDays = 0
     Row {
+        var currentOffsetDays = 0
         events.forEach { event ->
             val startOffsetDays = daysBetween(minDate, event.startDate.time)
             val eventDays = max(1, daysBetween(event.startDate.time, event.endDate.time) + 1)
 
-            Spacer(modifier = Modifier.width((startOffsetDays - currentOffsetDays) * dayWidth))
-
-            Box(
-                modifier = Modifier
-                    .width(eventDays * dayWidth)
-                    .height(40.dp)
-                    .background(colorForLane(laneIndex), RoundedCornerShape(8.dp))
-                    .clickable { onClickEventUiModel(event) },
-                contentAlignment = Alignment.Center
-            ) {
-                Text(
-                    text = event.name,
-                    color = Color.White,
-                    style = MaterialTheme.typography.bodySmall,
-                    maxLines = 1,
-                    overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
-                )
+            val gap = startOffsetDays - currentOffsetDays
+            if (gap > 0) {
+                Spacer(modifier = Modifier.width(gap * dayWidth))
             }
+
+            EventBox(
+                event = event,
+                laneIndex = laneIndex,
+                dayWidth = dayWidth,
+                eventDays = eventDays,
+                onClick = { onClickEventUiModel(event) }
+            )
 
             currentOffsetDays = startOffsetDays + eventDays
         }
+    }
+}
 
-        if (currentOffsetDays < totalDays) {
-            Spacer(modifier = Modifier.width((totalDays - currentOffsetDays) * dayWidth))
-        }
+@Composable
+fun EventBox(
+    event: EventUiModel,
+    laneIndex: Int,
+    dayWidth: Dp,
+    eventDays: Int,
+    onClick: () -> Unit
+) {
+    Box(
+        modifier = Modifier
+            .width(eventDays * dayWidth)
+            .height(40.dp)
+            .background(colorForLane(laneIndex), RoundedCornerShape(8.dp))
+            .clickable(onClick = onClick),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text = event.name,
+            color = Color.White,
+            style = MaterialTheme.typography.bodySmall,
+            maxLines = 1,
+            overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis
+        )
     }
 }
 

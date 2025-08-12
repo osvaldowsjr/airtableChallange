@@ -18,8 +18,8 @@ This app displays a timeline of events in swimlanes. Users can view, edit, and m
 
 ## Time Spent
 
-Start time: 2025-08-12 @ 01:10 PM
-End time: 2025-08-12 @ 16:30 PM
+- Start time: 2025-08-12 @ 01:10 PM
+- End time: 2025-08-12 @ 16:30 PM
 
 ## What I Like About My Implementation
 

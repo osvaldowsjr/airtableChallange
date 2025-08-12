@@ -70,7 +70,7 @@ fun SwimlaneTimeline(
 
                 Column {
                     lanes.forEachIndexed { index, laneEvents ->
-                        LaneRow(laneEvents, minDate, dayWidth, index, totalDays) {
+                        LaneRow(laneEvents, minDate, dayWidth, index) {
                             openEditDialog(it)
                         }
                         Spacer(Modifier.height(8.dp))
