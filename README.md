@@ -1,8 +1,5 @@
 # Timeline Kotlin App
 
-## Start time: 2025-08-12 @ 01:10 PM
-## End time: 2025-08-12 @ 16:30 PM
-
 ## Overview
 
 This app displays a timeline of events in swimlanes. Users can view, edit, and manage events. The code is written in Kotlin using Jetpack Compose.
@@ -21,7 +18,8 @@ This app displays a timeline of events in swimlanes. Users can view, edit, and m
 
 ## Time Spent
 
-- Total time: **X hours** (fill in your actual time)
+Start time: 2025-08-12 @ 01:10 PM
+End time: 2025-08-12 @ 16:30 PM
 
 ## What I Like About My Implementation
 
